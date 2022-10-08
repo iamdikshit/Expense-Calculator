@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Calculator</title>
+    <link rel="stylesheet" href="/dist/output.css" />
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+  </head>
+  <body class="bg-bg-white">
+    <header
+      class="header mx-auto bg-black h-14 md:h-16 flex items-center justify-center"
+    >
+      <h1 class="text-white font-bold text-2xl md:text-4xl">
+        Expense Calculator
+      </h1>
+    </header>
+
+    <section class="hero px-8 md:px-16 pt-8">
+      <div
+        class="container mx-auto flex flex-col sm:flex-row items-start gap-8 sm:gap-0 justify-between"
+      >
+        <div class="left-section flex items-center justify-center gap-4">
+          <img
+            src="/img/user.png"
+            class="w-16 h-16 shadow-lg rounded-full"
+            alt="user pic"
+          />
+          <h1
+            class="text-xl md:text-2xl lg:text-4xl text-light-green font-bold"
+          >
+            Hi User!
+          </h1>
+        </div>
+        <div
+          class="right-section w-full shadow-lg sm:w-auto bg-gradient-to-r from-ggreendark to-ggreenlight rounded"
+        >
+          <div
+            class="starting-balence-section p-4 flex items-center justify-end gap-4"
+          >
+            <h1
+              class="startin-balance-rupees font-bold text-2xl md:text-4xl lg:text-5xl text-white"
+            >
+              &#8377;22,000
+            </h1>
+
+            <ion-icon
+              name="create-outline"
+              class="btn-balance w-4 h-4 md:w-8 md:h-8 text-white"
+            ></ion-icon>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="data py-16 px-8 md:px-16">
+      <div class="container mx-auto grid grid-cols-1 md:grid-cols-4">
+        <div class="left-section h-56 flex items-end justify-center p-8 gap-2">
+          <div class="graph-balance">
+            <div class="inner-graph-balance">
+              <div class="w-10 h-20 bg-red-900"></div>
+            </div>
+            <h1 class="text-black">Balance</h1>
+          </div>
+          <div class="graph-expence">
+            <div class="inner-graph-expence">
+              <div class="w-10 h-10 bg-green-900"></div>
+            </div>
+            <h1 class="text-black">Expense</h1>
+          </div>
+        </div>
+        <div class="right-section col-span-3 shadow-md p-4 bg-white">
+          <div class="data-head py-8 flex items-center justify-between">
+            <div>
+              <h1
+                class="text-xl sm:text-2xl md:text-4xl font-bold text-pinkist"
+              >
+                Expenses
+              </h1>
+            </div>
+            <div>
+              <button
+                class="btn-expense shadow-lg px-2 py-1 text-sm md:text-base md:px-4 md:py-2 bg-ggreendark text-white hover:bg-green-800 rounded"
+              >
+                Add Expense
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto relative">
+            <table class="w-full text-sm text-left text-gray-500">
+              <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <tr>
+                  <th scope="col" class="py-3 px-6">Expenses</th>
+                  <th scope="col" class="py-3 px-6">Planned</th>
+                  <th scope="col" class="py-3 px-6">Actual</th>
+                  <th scope="col" class="py-3 px-6">Difference</th>
+                </tr>
+              </thead>
+              <tbody class="table-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div
+      class="balance-modal w-full h-screen top-0 left-0 absolute items-center justify-center bg-black bg-opacity-50 filter backdrop-blur hidden"
+    >
+      <div class="px-4 pb-8 pt-2 bg-green-500 rounded">
+        <div class="close-icon mx-auto flex justify-end">
+          <ion-icon
+            name="close-outline"
+            class="btn-close-balance w-6 h-6 text-white"
+          ></ion-icon>
+        </div>
+        <form action="" class="">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <label for="starting-balance" class="text-white"
+                >Add Balance</label
+              >
+              <input
+                type="text"
+                name="starting-balance"
+                id="starting-balance"
+                class="starting-balance p-1 rounded-md text-center"
+                required
+              />
+              <p class="error-balance hidden text-sm text-red-600 font-bold">
+                *Hello
+              </p>
+            </div>
+
+            <button
+              class="btn-balance-submit text-center bg-green-900 text-white rounded-lg px-4 py-1 hover:bg-green-800"
+            >
+              Edit Balance
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="balance-modal-form w-full h-screen top-0 left-0 absolute items-center justify-center bg-black bg-opacity-50 filter backdrop-blur hidden"
+    >
+      <div class="px-4 pb-8 pt-2 bg-white w-auto sm:w-1/3 rounded">
+        <div class="close-icon mx-auto flex justify-end">
+          <ion-icon
+            name="close-outline"
+            class="btn-close-expense w-6 h-6 text-black"
+          ></ion-icon>
+        </div>
+        <form action="" class="">
+          <div class="pb-4">
+            <h1 class="text-xl sm:text-2xl md:text-3xl text-center font-bold">
+              Expense
+            </h1>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-2">
+              <label for="item" class="text-black">Expense on</label>
+              <input
+                type="text"
+                name="item"
+                id="item"
+                required
+                class="item p-1 rounded-md text-center border-2 border-gray-400"
+              />
+            </div>
+
+            <div class="flex flex-col gap-2">
+              <label for="Planned" class="text-black">Planned</label>
+              <input
+                type="text"
+                name="Planned"
+                id="Planned"
+                required
+                class="Planned p-1 rounded-md text-center border-2 border-gray-400"
+              />
+            </div>
+            <div class="flex flex-col gap-2">
+              <label for="Actual" class="text-black">Actual</label>
+              <input
+                type="text"
+                name="Actual"
+                id="Actual"
+                required
+                class="Actual p-1 rounded-md text-center border-2 border-gray-400"
+              />
+            </div>
+
+            <button
+              class="btn-expense-submit text-center bg-green-900 text-white rounded-lg px-4 py-1 hover:bg-green-800"
+            >
+              Edit Balance
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
