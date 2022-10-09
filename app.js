@@ -1,3 +1,5 @@
+"use strict";
+
 const btnBalance = document.querySelector(".btn-balance");
 const balanceModal = document.querySelector(".balance-modal");
 const btnCloseBalance = document.querySelector(".btn-close-balance");
@@ -13,7 +15,23 @@ const planned = document.querySelector(".Planned");
 const actual = document.querySelector(".Actual");
 const tableBody = document.querySelector(".table-body");
 
+const plannedSumele = document.querySelector(".planned-sum");
+const actualSumele = document.querySelector(".actual-sum");
+const diffSumele = document.querySelector(".diff-sum");
+
 const Expense = [];
+let startBalane = 0;
+let pSum = 0;
+let aSum = 0;
+const summery = function () {
+  // const pSum = Expense.map((acc, curr) => console.log(curr), 0);
+  pSum = 0;
+  aSum = 0;
+  Expense.forEach(function (ele) {
+    pSum = pSum + Number(ele.planned_val);
+    aSum = aSum + Number(ele.actual_val);
+  });
+};
 
 const btnExpenseSubmit = document.querySelector(".btn-expense-submit");
 
@@ -64,14 +82,19 @@ btnBalanceSubmit.addEventListener("click", function (e) {
   const val = startingBalance.value;
   startingBalance.value = "";
   if (val != "" && !isNaN(Number(val))) {
-    startinBalanceRupees.textContent = new Intl.NumberFormat("en-IN", {
-      maximumSignificantDigits: 3,
-      style: "currency",
-      currency: "INR",
-    }).format(Number(val));
+    startBalane = Number(val);
+    UpdateStartBalance();
     closeModal();
   }
 });
+
+const UpdateStartBalance = function () {
+  startinBalanceRupees.textContent = new Intl.NumberFormat("en-IN", {
+    maximumSignificantDigits: 3,
+    style: "currency",
+    currency: "INR",
+  }).format(Number(startBalane));
+};
 
 const AddExpense = function () {
   tableBody.textContent = "";
@@ -97,7 +120,7 @@ const AddExpense = function () {
     <tr class="bg-white border-b">
       <th
           scope="row"
-          class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
+          class="table-data py-4 px-6 font-medium text-gray-900 whitespace-nowrap"
         >
             ${exp.item_val}
             </th>
@@ -132,13 +155,46 @@ btnExpenseSubmit.addEventListener("click", function (e) {
     !isNaN(Number(planned_val)) &&
     !isNaN(Number(actual_val))
   ) {
-    user_input = {};
+    const user_input = {};
     user_input.item_val = item_val;
     user_input.planned_val = planned_val;
     user_input.actual_val = actual_val;
     Expense.push(user_input);
-
+    startBalane = startBalane - actual_val;
+    UpdateStartBalance();
     uiUpdate();
+    summery();
+    UpdateChart();
     closeModalForm();
   }
 });
+
+let myChart;
+
+function UpdateChart() {
+  myChart.data.datasets[0].data = [aSum, pSum];
+  myChart.update();
+}
+
+// chart
+const ctx = document.getElementById("myChart").getContext("2d");
+function displaychart() {
+  const data = {
+    labels: ["Actual", "Planned"],
+    datasets: [
+      {
+        label: "My First Dataset",
+        data: [aSum, pSum],
+        backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  myChart = new Chart(ctx, {
+    type: "doughnut",
+    data: data,
+  });
+}
+
+displaychart();

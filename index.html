@@ -52,7 +52,7 @@
 
             <ion-icon
               name="create-outline"
-              class="btn-balance w-4 h-4 md:w-8 md:h-8 text-white"
+              class="btn-balance w-6 h-6 md:w-8 md:h-8 text-white"
             ></ion-icon>
           </div>
         </div>
@@ -60,19 +60,11 @@
     </section>
     <section class="data py-16 px-8 md:px-16">
       <div class="container mx-auto grid grid-cols-1 md:grid-cols-4">
-        <div class="left-section h-56 flex items-end justify-center p-8 gap-2">
-          <div class="graph-balance">
-            <div class="inner-graph-balance">
-              <div class="w-10 h-20 bg-red-900"></div>
-            </div>
-            <h1 class="text-black">Balance</h1>
-          </div>
-          <div class="graph-expence">
-            <div class="inner-graph-expence">
-              <div class="w-10 h-10 bg-green-900"></div>
-            </div>
-            <h1 class="text-black">Expense</h1>
-          </div>
+        <div class="left-section">
+          <canvas id="myChart" width="400" height="400"></canvas>
+          <p class="actual-sum hidden"></p>
+          <p class="planned-sum hidden"></p>
+          <p class="diff-sum hidden"></p>
         </div>
         <div class="right-section col-span-3 shadow-md p-4 bg-white">
           <div class="data-head py-8 flex items-center justify-between">
@@ -131,9 +123,6 @@
                 class="starting-balance p-1 rounded-md text-center"
                 required
               />
-              <p class="error-balance hidden text-sm text-red-600 font-bold">
-                *Hello
-              </p>
             </div>
 
             <button
@@ -205,6 +194,7 @@
       </div>
     </div>
 
+    <script src="/node_modules/chart.js/dist/chart.js"></script>
     <script src="/app.js"></script>
   </body>
 </html>
